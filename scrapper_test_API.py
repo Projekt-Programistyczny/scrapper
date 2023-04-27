@@ -1,4 +1,4 @@
-from scrapper import Olx_Scrapper, OtoDom_Scrapper
+from src.scrapper import Olx_Scrapper, OtoDom_Scrapper
 import json
 import os
 import time
