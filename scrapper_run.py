@@ -4,6 +4,14 @@ import json
 import os
 import time
 
+
+"""
+Author: Kamil Wieczorek
+Contact: vieczorkamil@gmail.com
+Version: 0.1
+Date: 16-05-2023
+"""
+
 SCRAPPER_INTERVAL = 5 * 60 # 5 minutes
 MAX_SCRAPPING_TRY = 5
 CITY_TO_EXPLORE = ['katowice']
@@ -13,15 +21,17 @@ DEBUG = True
 def run_scrapper(city: str):
     list_of_scrapped_data = []
     scrapped_data_failed = {"description": "Failed",
-                            "total price": "Failed",
-                            "price": "Failed",
-                            "rent": "Failed",
-                            "area": "Failed",
-                            "rooms": "Failed",
-                            "deposit": "Failed",
+                            "total_price": -1.0,
+                            "price": -1.0,
+                            "rent": -1.0,
+                            "currency": "Failed",
+                            "area": -1.0,
+                            "rooms": -1,
+                            "deposit": -1.0,
                             "floor": "Failed",
                             "type": "Failed",
-                            "status": "Failed"
+                            "status": "Failed",
+                            "region": "Failed"
                             }
 
     crawler_data = select_unused_and_active_links(city)
@@ -60,7 +70,7 @@ def run_scrapper(city: str):
 
         # optimize memory -> save data in chunk
         # also connection cannot be open such long time 
-        if (i % 250 == 0):
+        if (i % 50 == 0):
             add_offers(list_of_scrapped_data)
             list_of_scrapped_data = []
             index = 0

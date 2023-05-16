@@ -11,8 +11,8 @@ import bs4
 """
 Author: Kamil Wieczorek
 Contact: vieczorkamil@gmail.com
-Version: 0.2
-Date: 24-04-2023
+Version: 0.3
+Date: 16-05-2023
 """
 
 
@@ -66,12 +66,15 @@ class Scrapper_Base(ABC):
             str_output = str_output.replace(arg, "")
         if to_num:
             if str_output == "Zapytaj":
-                return 0
+                return -1
             elif str_output == "Kawalerka":
                 return 1
             else:
-                str_output = str_output.replace(",", ".")
-                return float(str_output)
+                try:
+                    str_output = str_output.replace(",", ".")
+                    return float(str_output)
+                except:
+                    return -1
         else:
             return str_output
 
@@ -96,6 +99,8 @@ class OtoDom_Scrapper(Scrapper_Base):
             currency = "usd"
         else:
             currency = "Brak info"
+
+        # FIXME: some problems with this 
 
         price = self._clean_str(price, True, "zł", "ZŁ", "EUR", "eur", "USD", "usd")
 
@@ -167,10 +172,10 @@ class Olx_Scrapper(Scrapper_Base):
 
         # init values as "Brak info"
 
-        area = "Brak info"
+        area = -1.0
         rent = 0
-        rooms = "Brak info"
-        deposit = "Brak info"
+        rooms = -1
+        deposit = -1.0
         floor = "Brak info"
         type_of_floor = "Brak info"
         status = "Brak info"
