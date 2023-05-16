@@ -29,6 +29,8 @@ def run_scrapper(city: str):
     scrapper_otoDom = OtoDom_Scrapper()
     num_of_links = len(crawler_data)
 
+    index = 0
+
 
     for i, record in enumerate(crawler_data):
         print("                                      ", end='\r')
@@ -40,21 +42,30 @@ def run_scrapper(city: str):
         if "olx" in link:
             for j in range(MAX_SCRAPPING_TRY):
                 try:
-                    list_of_scrapped_data[i].update(scrapper_olx.run(link))
+                    list_of_scrapped_data[index].update(scrapper_olx.run(link))
                 except:
-                    list_of_scrapped_data[i].update(scrapped_data_failed)
+                    list_of_scrapped_data[index].update(scrapped_data_failed)
                 else:
                     break
         elif "otodom" in link:
             for j in range(MAX_SCRAPPING_TRY):
                 try:
-                    list_of_scrapped_data[i].update(scrapper_otoDom.run(link))
+                    list_of_scrapped_data[index].update(scrapper_otoDom.run(link))
                 except:
-                    list_of_scrapped_data[i].update(scrapped_data_failed)
+                    list_of_scrapped_data[index].update(scrapped_data_failed)
                 else:
                     break
         set_link_as_used(link)
+        index += 1
 
+        # optimize memory -> save data in chunk
+        # also connection cannot be open such long time 
+        if (i % 250 == 0):
+            add_offers(list_of_scrapped_data)
+            list_of_scrapped_data = []
+            index = 0
+
+    # save the rest of data 
     add_offers(list_of_scrapped_data)
     
 
