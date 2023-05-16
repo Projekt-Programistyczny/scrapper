@@ -119,18 +119,18 @@ class OtoDom_Scrapper(Scrapper_Base):
 
         region = soup.find_all("a", class_="css-1in5nid e19r3rnf1")[1].text
 
-        ret = {"Description": title,
-               "Total price": price+rent,
-               "Price": price,
-               "Rent": rent,
-               "Currency": currency,
-               "Area": area,
-               "Rooms": rooms,
-               "Deposit": deposit,
-               "Floor": floor,
-               "Type": type_of_floor,
-               "Status": status,
-               "Region": region
+        ret = {"description": title,
+               "total_price": price+rent,
+               "price": price,
+               "rent": rent,
+               "currency": currency,
+               "area": area,
+               "rooms": rooms,
+               "deposit": deposit,
+               "floor": floor,
+               "type": type_of_floor,
+               "status": status,
+               "region": region
                }
         
         return ret
@@ -198,18 +198,18 @@ class Olx_Scrapper(Scrapper_Base):
             region = "Brak info"
 
 
-        ret = {"Description": title,
-               "Total price": price+rent,
-               "Price": price,
-               "Rent": rent,
-               "Currency": currency,
-               "Area": area,
-               "Rooms": rooms,
-               "Deposit": deposit,
-               "Floor": floor,
-               "Type": type_of_floor,
-               "Status": status,
-               "Region": region
+        ret = {"description": title,
+               "total_price": price+rent,
+               "price": price,
+               "rent": rent,
+               "currency": currency,
+               "area": area,
+               "rooms": rooms,
+               "deposit": deposit,
+               "floor": floor,
+               "type": type_of_floor,
+               "status": status,
+               "region": region
                }
         
         return ret
