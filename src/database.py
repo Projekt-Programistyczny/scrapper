@@ -44,7 +44,7 @@ def add_offers(list_of_offers) -> None:
 
 def set_link_as_used(url):
     with SessionLocal() as db:
-        row = db.query(ModelLink).filter_by(url=url).one()
+        row = db.query(ModelLink).filter_by(url=url).first()
         row.used = True
         db.commit()
     
