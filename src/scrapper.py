@@ -100,7 +100,6 @@ class OtoDom_Scrapper(Scrapper_Base):
         else:
             currency = "Brak info"
 
-        # FIXME: some problems with this 
 
         price = self._clean_str(price, True, "zł", "ZŁ", "EUR", "eur", "USD", "usd")
 
@@ -124,8 +123,9 @@ class OtoDom_Scrapper(Scrapper_Base):
 
         region = soup.find_all("a", class_="css-1in5nid e19r3rnf1")[1].text
 
+
         ret = {"description": title,
-               "total_price": price+rent,
+               "total_price": price+rent if rent != -1.0 else price,
                "price": price,
                "rent": rent,
                "currency": currency,
@@ -204,7 +204,7 @@ class Olx_Scrapper(Scrapper_Base):
 
 
         ret = {"description": title,
-               "total_price": price+rent,
+               "total_price": price+rent if rent != -1.0 else price,
                "price": price,
                "rent": rent,
                "currency": currency,
