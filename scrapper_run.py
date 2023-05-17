@@ -3,6 +3,7 @@ from src.database import *
 import json
 import os
 import time
+import yaml
 
 
 """
@@ -12,9 +13,13 @@ Version: 0.1
 Date: 16-05-2023
 """
 
+
+with open('cities.yaml', 'r') as f:
+    cities_yaml = yaml.safe_load(f)
+
 SCRAPPER_INTERVAL = 5 * 60 # 5 minutes
 MAX_SCRAPPING_TRY = 5
-CITY_TO_EXPLORE = ['katowice']
+CITY_TO_EXPLORE = cities_yaml["region"]["cities"]
 DEBUG = True
 
 
@@ -44,7 +49,7 @@ def run_scrapper(city: str):
 
     for i, record in enumerate(crawler_data):
         print("                                      ", end='\r')
-        print(f"Scrapped {i + 1}/{num_of_links} links", end="\r")
+        print(f"[{city}] Scrapped {i + 1}/{num_of_links} links", end="\r")
 
         link = record.url
         list_of_scrapped_data.append({"url": link})
