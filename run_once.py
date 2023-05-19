@@ -4,7 +4,10 @@ import json
 import os
 import time
 import yaml
+import logging
 
+logging.basicConfig(filename='logfile.txt', level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
 
 """
 Author: Kamil Wieczorek
@@ -48,8 +51,8 @@ def run_scrapper(city: str):
 
 
     for i, record in enumerate(crawler_data):
-        print("                                      ", end='\r')
-        print(f"[{city}] Scrapped {i + 1}/{num_of_links} links", end="\r")
+        logging.info("                                      ", end='\r')
+        logging.info(f"[{city}] Scrapped {i + 1}/{num_of_links} links", end="\r")
 
         link = record.url
         list_of_scrapped_data.append({"url": link})
