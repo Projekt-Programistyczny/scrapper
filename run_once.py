@@ -16,8 +16,10 @@ Version: 0.1
 Date: 16-05-2023
 """
 
+absolute_path = os.path.dirname(__file__)
+cities_path = os.path.join(absolute_path, 'cities.yaml')
 
-with open('cities.yaml', 'r') as f:
+with open(cities_path, 'r') as f:
     cities_yaml = yaml.safe_load(f)
 
 SCRAPPER_INTERVAL = 5 * 60 # 5 minutes
@@ -51,8 +53,8 @@ def run_scrapper(city: str):
 
 
     for i, record in enumerate(crawler_data):
-        logging.info("                                      ", end='\r')
-        logging.info(f"[{city}] Scrapped {i + 1}/{num_of_links} links", end="\r")
+        print("                                      ", end='\r')
+        logging.info(f"[{city}] Scrapped {i + 1}/{num_of_links} links")
 
         link = record.url
         list_of_scrapped_data.append({"url": link})
