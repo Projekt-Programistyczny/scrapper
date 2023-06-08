@@ -112,7 +112,7 @@ class OtoDom_Scrapper(Scrapper_Base):
         rent = self._clean_str(rent, True, "zł/miesiąc", "ZŁ/miesiąc", "eur/miesiąc", "EUR/miesiąc")
 
         rooms = description[5].text
-        rooms = self._clean_str(rooms, True, "więcejniż") #TODO: handle "więcej niż"
+        rooms = self._clean_str(rooms, True, "więcejniż")
 
         deposit = description[7].text
         deposit = self._clean_str(deposit, True, "zł", "eur", "usd", "ZŁ", "EUR", "USD")
@@ -155,7 +155,7 @@ class Olx_Scrapper(Scrapper_Base):
 
         if "zł" in price.lower():
             currency = "zł"
-        elif "eur" in price.lower(): #TODO: check
+        elif "eur" in price.lower():
             currency = "eur"
         elif "usd" in price.lower():
             currency = "usd"
@@ -169,8 +169,6 @@ class Olx_Scrapper(Scrapper_Base):
         description = []
         for i in description_temp:
             description.append(i.text)
-
-        # init values as "Brak info"
 
         area = -1.0
         rent = 0
@@ -187,7 +185,7 @@ class Olx_Scrapper(Scrapper_Base):
             elif "Czynsz" in i:
                 rent = self._clean_str(i, True, "Czynsz(dodatkowo):", "zł")
             elif "Liczba pokoi" in i:
-                rooms = self._clean_str(i, True, "Liczbapokoi:", "pokoje", "iwięcej") # TODO: handle "4 i więcej"
+                rooms = self._clean_str(i, True, "Liczbapokoi:", "pokoje", "iwięcej")
             elif "Poziom" in i:
                 floor = self._clean_str(i, False, "Poziom:")
             elif "Rodzaj zabudowy:" in i:
