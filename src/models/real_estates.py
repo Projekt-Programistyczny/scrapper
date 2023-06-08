@@ -20,3 +20,4 @@ class RealEstates(Base):
     type = Column(String)
     status = Column(String)
     region = Column(String)
+    category = Column(Integer)
